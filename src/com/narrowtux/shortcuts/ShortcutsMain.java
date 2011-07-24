@@ -121,7 +121,11 @@ public class ShortcutsMain extends JavaPlugin {
 		if(sender instanceof Player){
 			ContribPlayer player = (ContribPlayer)sender;
 			ShortcutPlayer splayer = ShortcutPlayer.get(player);
-			if(player.isBukkitContribEnabled()){
+			if(!player.hasPermission("shortcuts.use")){
+				player.sendMessage("You may not use Shortcuts!");
+				return true;
+			}
+			if(player.getVersion()>=4){
 				if(args.length>=1){
 					String action = args[0];
 					if(action.equalsIgnoreCase("add")){
@@ -164,7 +168,11 @@ public class ShortcutsMain extends JavaPlugin {
 					}
 				}
 			} else {
-				sender.sendMessage("You need the BukkitContrib client mod!");
+				if(player.isBukkitContribEnabled()){
+					sender.sendMessage("Your BukkitContrib is waaaay too old!");
+				} else {
+					sender.sendMessage("You need the BukkitContrib client mod!");
+				}
 				return true;
 			}
 		} else {
