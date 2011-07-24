@@ -127,16 +127,28 @@ public class ShortcutsMain extends JavaPlugin {
 					if(action.equalsIgnoreCase("add")){
 						ShortcutSetupAssistant assistant = new ShortcutSetupAssistant(player);
 						assistant.start();
+						splayer.setRemove(false);
+						splayer.setUpdate(false);
 						return true;
 					}
 					if(action.equalsIgnoreCase("remove")){
-						sender.sendMessage("Now press the shortcut you want to remove");
 						splayer.setRemove(true);
 						splayer.setUpdate(false);
 						if(splayer.getCurrentAssistant()!=null)
 						{
 							splayer.getCurrentAssistant().cancel();
 						}
+						sender.sendMessage("Now press the shortcut you want to remove.");
+						return true;
+					}
+					if(action.equalsIgnoreCase("update")){
+						splayer.setUpdate(true);
+						splayer.setRemove(false);
+						if(splayer.getCurrentAssistant()!=null)
+						{
+							splayer.getCurrentAssistant().cancel();
+						}
+						sender.sendMessage("Now press the shortcut you want to update.");
 						return true;
 					}
 					if(action.equalsIgnoreCase("list")){

@@ -72,6 +72,19 @@ public class ShortcutPlayer {
 			return;
 		}
 		if(update){
+			ShortcutAction action = getAction(shortcut);
+			if(action!=null)
+			{
+				ShortcutSetupAssistant assistant = new ShortcutSetupAssistant(getPlayer());
+				assistant.action = getAction(shortcut);
+				assistant.shortcut = shortcut;
+				assistant.update = true;
+				assistant.updatedShortcut = shortcut;
+				assistant.start();
+				assistant.getCurrentPage().onPageInput("!list");
+			} else {
+				getPlayer().sendMessage("Shortcut '"+shortcut+"' not found.");
+			}
 			update = false;
 			ShortcutsMain.instance.save();
 			return;
@@ -125,5 +138,9 @@ public class ShortcutPlayer {
 	
 	public static Collection<ShortcutPlayer> getPlayers(){
 		return instances.values();
+	}
+
+	public void removeShortcut(Shortcut shortcut) {
+		actions.remove(shortcut);
 	}
 }

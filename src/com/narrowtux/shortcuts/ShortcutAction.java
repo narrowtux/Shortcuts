@@ -50,4 +50,13 @@ public class ShortcutAction {
 			}
 		}
 	}
+	
+	public boolean removeCommand(String cmd){
+		cmd = cmd.replaceAll("^/", "");
+		return commands.remove(cmd);
+	}
+	
+	public boolean removeChat(String chat){
+		return this.chat.remove(chat);
+	}
 }

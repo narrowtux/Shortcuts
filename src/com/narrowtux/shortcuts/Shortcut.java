@@ -33,6 +33,7 @@ public class Shortcut {
 	}
 	
 	public void setKeys(Set<Keyboard> keys){
+		this.keys.clear();
 		for(Keyboard key:keys){
 			this.keys.add(key);
 		}
