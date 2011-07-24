@@ -46,6 +46,10 @@ public class ShortcutPlayer {
 		{
 			return;
 		}
+		if(key.equals(getPlayer().getInventoryKey()))
+		{
+			return;
+		}
 		currentlyPressedKeys.add(key);
 		keysUpLeft.add(key);
 	}
@@ -64,6 +68,7 @@ public class ShortcutPlayer {
 			actions.remove(shortcut);
 			remove = false;
 			ShortcutsMain.instance.save();
+			getPlayer().sendMessage("Shortcut '"+shortcut+"' removed.");
 			return;
 		}
 		if(update){

@@ -164,6 +164,7 @@ public class ShortcutsMain extends JavaPlugin {
 	
 	public void save(){
 		FlatFileReader reader = new FlatFileReader(new File(getDataFolder(), "players.lst"), true);
+		reader.clear();
 		for(ShortcutPlayer player:ShortcutPlayer.getPlayers()){
 			String value = "";
 			int i = 0;
@@ -183,6 +184,7 @@ public class ShortcutsMain extends JavaPlugin {
 	
 	private void saveShortcut(Shortcut sh, ShortcutAction action, String filename) {
 		FlatFileReader reader = new FlatFileReader(new File(getDataFolder(), filename), false);
+		reader.clear();
 		String shortcut = "";
 		for(Keyboard key:sh.getKeys()){
 			if(shortcut.length()>0){

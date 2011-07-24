@@ -39,7 +39,7 @@ public class ShortcutSetupAssistant extends Assistant {
 					return AssistantAction.CANCEL;
 				} else {
 					action.addChat(text);
-					sendMessage(text);
+					sendMessage("Added message '"+text+"'.");
 					return AssistantAction.SILENT_REPEAT;
 				}
 			}

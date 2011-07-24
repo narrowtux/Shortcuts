@@ -45,7 +45,7 @@ public class Shortcut {
 			if(result.length()>0){
 				result+=" + ";
 			}
-			result+=key.toString();
+			result+=key.toString().replace("KEY_", "");
 		}
 		return result;
 	}
