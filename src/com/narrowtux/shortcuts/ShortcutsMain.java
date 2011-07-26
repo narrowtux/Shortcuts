@@ -32,6 +32,8 @@ public class ShortcutsMain extends JavaPlugin {
 	private Logger log;
 	private NarrowtuxLib lib = null;
 	public static ShortcutsMain instance;
+	private long ticks = 0;
+	
 	@Override
 	public void onDisable() {
 		//save();
@@ -49,6 +51,7 @@ public class ShortcutsMain extends JavaPlugin {
 		checkForLibs();
 		registerEvent(Type.CUSTOM_EVENT, new KeyboardListener());
 		registerEvent(Type.PLAYER_COMMAND_PREPROCESS, new ShortcutPlayerListener());
+		registerEvent(Type.CUSTOM_EVENT, new ShortcutBukkitContribListener());
 		load();
 		sendDescription("enabled");
 	}
@@ -166,6 +169,11 @@ public class ShortcutsMain extends JavaPlugin {
 						}
 						return true;
 					}
+					if(action.equalsIgnoreCase("keys")){
+						sender.sendMessage(splayer.getPressedKeys().toString());
+						sender.sendMessage(splayer.getKeysToBeReleased().toString());
+						return true;
+					}
 				}
 			} else {
 				if(player.isBukkitContribEnabled()){
@@ -248,5 +256,13 @@ public class ShortcutsMain extends JavaPlugin {
 			action.addChat(chat);
 		}
 		player.addAction(sh, action);
+	}
+	
+	public static void onTick(){
+		instance.ticks++;
+	}
+	
+	public static long getTicks(){
+		return instance.ticks;
 	}
 }

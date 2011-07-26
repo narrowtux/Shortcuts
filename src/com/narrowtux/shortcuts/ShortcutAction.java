@@ -36,9 +36,6 @@ public class ShortcutAction {
 
 	public void summon(){
 		Player p = player.getPlayer();
-		for(String command:commands){
-			Bukkit.getServer().dispatchCommand(p, command);
-		}
 		for(String text:chat){
 			PlayerChatEvent event = new PlayerChatEvent(p, text);
 			Bukkit.getServer().getPluginManager().callEvent(event);
@@ -48,6 +45,9 @@ public class ShortcutAction {
 					receiver.sendMessage(txt);
 				}
 			}
+		}
+		for(String command:commands){
+			Bukkit.getServer().dispatchCommand(p, command);
 		}
 	}
 	

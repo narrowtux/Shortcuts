@@ -18,6 +18,7 @@ public class ShortcutPlayer {
 	private Set<Keyboard> keysUpLeft = new HashSet<Keyboard>();
 	private Map<Shortcut, ShortcutAction> actions = new HashMap<Shortcut, ShortcutAction>();
 	private ShortcutSetupAssistant assistant = null;
+	private long lastKeyPressTick = 0;
 	private boolean remove = false;
 	private boolean update = false;;
 	private ShortcutPlayer(String name){
@@ -42,6 +43,11 @@ public class ShortcutPlayer {
 	}
 	
 	public void keyDown(Keyboard key){
+		long ticks = ShortcutsMain.getTicks();
+		if(ticks - lastKeyPressTick>100){
+			clearKeys();
+		}
+		lastKeyPressTick = ticks;
 		if(key.equals(getPlayer().getChatKey()))
 		{
 			return;
@@ -142,5 +148,18 @@ public class ShortcutPlayer {
 
 	public void removeShortcut(Shortcut shortcut) {
 		actions.remove(shortcut);
+	}
+
+	public Shortcut getPressedKeys() {
+		return new Shortcut(currentlyPressedKeys);
+	}
+	
+	public Shortcut getKeysToBeReleased(){
+		return new Shortcut(keysUpLeft);
+	}
+	
+	public void clearKeys(){
+		currentlyPressedKeys.clear();
+		keysUpLeft.clear();
 	}
 }

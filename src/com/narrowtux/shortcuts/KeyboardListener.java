@@ -10,12 +10,14 @@ public class KeyboardListener extends InputListener {
 	public void onKeyPressedEvent(KeyPressedEvent event) {
 		ShortcutPlayer player = ShortcutPlayer.get(event.getPlayer());
 		player.keyDown(event.getKey());
+		//event.getPlayer().sendMessage(event.getKey()+" down!");
 	}
 
 	@Override
 	public void onKeyReleasedEvent(KeyReleasedEvent event) {
 		ShortcutPlayer player = ShortcutPlayer.get(event.getPlayer());
 		player.keyUp(event.getKey());
+		//event.getPlayer().sendMessage(event.getKey()+" up!");
 	}
 
 }

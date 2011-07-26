@@ -1,6 +1,6 @@
 name: Shortcuts
 author: narrowtux
-version: 0.2
+version: 0.2.1
 main: com.narrowtux.shortcuts.ShortcutsMain
 commands:
     shortcut:
