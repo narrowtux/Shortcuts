@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.bukkitcontrib.keyboard.Keyboard;
+import org.getspout.spoutapi.keyboard.Keyboard;
 
 public class Shortcut {
 	private Comparator<Keyboard> keyCompare = new Comparator<Keyboard>() {

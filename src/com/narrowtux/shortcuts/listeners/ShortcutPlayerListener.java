@@ -1,7 +1,10 @@
-package com.narrowtux.shortcuts;
+package com.narrowtux.shortcuts.listeners;
 
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerListener;
+
+import com.narrowtux.shortcuts.ShortcutPlayer;
+import com.narrowtux.shortcuts.assistant.ShortcutSetupAssistant;
 
 public class ShortcutPlayerListener extends PlayerListener {
 

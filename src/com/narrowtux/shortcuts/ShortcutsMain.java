@@ -22,11 +22,15 @@ import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkitcontrib.keyboard.Keyboard;
-import org.bukkitcontrib.player.ContribPlayer;
+import org.getspout.spoutapi.keyboard.Keyboard;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 import com.narrowtux.Main.NarrowtuxLib;
 import com.narrowtux.Utils.FlatFileReader;
+import com.narrowtux.shortcuts.assistant.ShortcutSetupAssistant;
+import com.narrowtux.shortcuts.listeners.KeyboardListener;
+import com.narrowtux.shortcuts.listeners.ShortcutBukkitContribListener;
+import com.narrowtux.shortcuts.listeners.ShortcutPlayerListener;
 
 public class ShortcutsMain extends JavaPlugin {
 	private Logger log;
@@ -122,7 +126,7 @@ public class ShortcutsMain extends JavaPlugin {
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String args[]){
 		if(sender instanceof Player){
-			ContribPlayer player = (ContribPlayer)sender;
+			SpoutPlayer player = (SpoutPlayer)sender;
 			ShortcutPlayer splayer = ShortcutPlayer.get(player);
 			if(!player.hasPermission("shortcuts.use")){
 				player.sendMessage("You may not use Shortcuts!");
@@ -176,10 +180,10 @@ public class ShortcutsMain extends JavaPlugin {
 					}
 				}
 			} else {
-				if(player.isBukkitContribEnabled()){
-					sender.sendMessage("Your BukkitContrib is waaaay too old!");
+				if(player.isSpoutCraftEnabled()){
+					sender.sendMessage("Your Spoutcraft is waaaay too old!");
 				} else {
-					sender.sendMessage("You need the BukkitContrib client mod!");
+					sender.sendMessage("You need Spoutcraft!");
 				}
 				return true;
 			}

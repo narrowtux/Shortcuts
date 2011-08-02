@@ -1,4 +1,4 @@
-package com.narrowtux.shortcuts;
+package com.narrowtux.shortcuts.assistant;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -6,6 +6,11 @@ import org.bukkit.entity.Player;
 import com.narrowtux.Assistant.Assistant;
 import com.narrowtux.Assistant.AssistantAction;
 import com.narrowtux.Assistant.AssistantPage;
+import com.narrowtux.Assistant.AssistantScreen;
+import com.narrowtux.shortcuts.Shortcut;
+import com.narrowtux.shortcuts.ShortcutAction;
+import com.narrowtux.shortcuts.ShortcutPlayer;
+import com.narrowtux.shortcuts.ShortcutsMain;
 
 public class ShortcutSetupAssistant extends Assistant {
 	public ShortcutAction action = null;
@@ -107,6 +112,11 @@ public class ShortcutSetupAssistant extends Assistant {
 	public void onAssistantCancel(){
 		player.setCurrentAssistant(null);
 		sendMessage("Shortcut setup cancelled.");
+	}
+
+	@Override
+	public AssistantScreen createAssistantScreen() {
+		return new ShortcutSetupScreen(this);
 	}
 
 }

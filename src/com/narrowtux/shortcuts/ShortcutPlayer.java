@@ -8,8 +8,12 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkitcontrib.keyboard.Keyboard;
-import org.bukkitcontrib.player.ContribPlayer;
+import org.getspout.spoutapi.gui.ScreenType;
+import org.getspout.spoutapi.keyboard.Keyboard;
+import org.getspout.spoutapi.player.SpoutPlayer;
+
+import com.narrowtux.shortcuts.assistant.ShortcutSetupAssistant;
+import com.narrowtux.shortcuts.assistant.ShortcutSetupScreen;
 
 public class ShortcutPlayer {
 	private static Map<String, ShortcutPlayer> instances = new HashMap<String, ShortcutPlayer>();
@@ -42,33 +46,62 @@ public class ShortcutPlayer {
 		return _name;
 	}
 	
-	public void keyDown(Keyboard key){
+	public boolean isAcceptedScreen(ScreenType type){
+		return type.equals(ScreenType.GAME_SCREEN)||type.equals(ScreenType.CUSTOM_SCREEN);
+	}
+	
+	public void keyDown(Keyboard key, ScreenType screenType){
+		if(!isAcceptedScreen(screenType))
+			return;
+		if(key==null)
+		{
+			return;
+		}
+		if(getPlayer()==null)
+		{
+			clearKeys();
+			return;
+		}
 		long ticks = ShortcutsMain.getTicks();
 		if(ticks - lastKeyPressTick>100){
 			clearKeys();
 		}
 		lastKeyPressTick = ticks;
-		if(key.equals(getPlayer().getChatKey()))
+		if(getPlayer()!=null)
 		{
-			return;
-		}
-		if(key.equals(getPlayer().getInventoryKey()))
-		{
-			return;
+			if(key.equals(getPlayer().getChatKey()))
+			{
+				return;
+			}
+			if(key.equals(getPlayer().getInventoryKey()))
+			{
+				return;
+			}
 		}
 		currentlyPressedKeys.add(key);
 		keysUpLeft.add(key);
+		if(assistant!=null)
+		{
+			if(assistant.useGUI()){
+				if(screenType.equals(ScreenType.CUSTOM_SCREEN)){
+					ShortcutSetupScreen screen = (ShortcutSetupScreen)assistant.getScreen();
+					screen.updateButton(new Shortcut(currentlyPressedKeys), false);
+				}
+			}
+		}
 	}
 	
-	public void keyUp(Keyboard key){
+	public void keyUp(Keyboard key, ScreenType screenType){
+		if(!isAcceptedScreen(screenType))
+			return;
 		keysUpLeft.remove(key);
 		if(keysUpLeft.size()==0&&currentlyPressedKeys.size()>0){
-			onShortcut(new Shortcut(currentlyPressedKeys));
+			onShortcut(new Shortcut(currentlyPressedKeys), screenType);
 			currentlyPressedKeys.clear();
 		}
 	}
 	
-	public void onShortcut(Shortcut shortcut){
+	public void onShortcut(Shortcut shortcut, ScreenType type){
 		//getPlayer().sendMessage(shortcut.toString());
 		if(remove){
 			actions.remove(shortcut);
@@ -97,9 +130,16 @@ public class ShortcutPlayer {
 		}
 		if(assistant!=null)
 		{
-			assistant.shortcut = shortcut;
-			assistant.sendMessage(shortcut.toString()+" is the selected shortcut.");
-			return;
+			if(type.equals(ScreenType.GAME_SCREEN)&&!assistant.useGUI()){
+				assistant.shortcut = shortcut;
+				assistant.sendMessage(shortcut.toString()+" is the selected shortcut.");
+				return;
+			} else if(type.equals(ScreenType.CUSTOM_SCREEN)){
+				ShortcutSetupScreen screen = (ShortcutSetupScreen)assistant.getScreen();
+				if(screen.updateButton(shortcut, true)){
+					assistant.shortcut = shortcut;
+				}
+			}
 		}
 		ShortcutAction action = actions.get(shortcut);
 		if(action!=null)
@@ -110,8 +150,8 @@ public class ShortcutPlayer {
 		}
 	}
 
-	public ContribPlayer getPlayer() {
-		return (ContribPlayer)Bukkit.getServer().getPlayer(getName());
+	public SpoutPlayer getPlayer() {
+		return (SpoutPlayer)Bukkit.getServer().getPlayer(getName());
 	}
 	
 	public void addAction(Shortcut sh, ShortcutAction act){
