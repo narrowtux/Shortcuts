@@ -29,7 +29,7 @@ import com.narrowtux.Main.NarrowtuxLib;
 import com.narrowtux.Utils.FlatFileReader;
 import com.narrowtux.shortcuts.assistant.ShortcutSetupAssistant;
 import com.narrowtux.shortcuts.listeners.KeyboardListener;
-import com.narrowtux.shortcuts.listeners.ShortcutBukkitContribListener;
+import com.narrowtux.shortcuts.listeners.ShortcutSpoutListener;
 import com.narrowtux.shortcuts.listeners.ShortcutPlayerListener;
 
 public class ShortcutsMain extends JavaPlugin {
@@ -55,7 +55,7 @@ public class ShortcutsMain extends JavaPlugin {
 		checkForLibs();
 		registerEvent(Type.CUSTOM_EVENT, new KeyboardListener());
 		registerEvent(Type.PLAYER_COMMAND_PREPROCESS, new ShortcutPlayerListener());
-		registerEvent(Type.CUSTOM_EVENT, new ShortcutBukkitContribListener());
+		registerEvent(Type.CUSTOM_EVENT, new ShortcutSpoutListener());
 		load();
 		sendDescription("enabled");
 	}

@@ -118,5 +118,10 @@ public class ShortcutSetupAssistant extends Assistant {
 	public AssistantScreen createAssistantScreen() {
 		return new ShortcutSetupScreen(this);
 	}
+	
+	@Override
+	public boolean useGUI(){
+		return false;
+	}
 
 }
