@@ -1,12 +1,29 @@
+/*
+ * Copyright (C) 2011 Moritz Schmale <narrow.m@gmail.com>
+ *
+ * NarrowtuxLib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl.html>.
+ */
+
 package com.narrowtux.shortcuts.assistant;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import com.narrowtux.Assistant.Assistant;
-import com.narrowtux.Assistant.AssistantAction;
-import com.narrowtux.Assistant.AssistantPage;
-import com.narrowtux.Assistant.AssistantScreen;
+import com.narrowtux.narrowtuxlib.assistant.Assistant;
+import com.narrowtux.narrowtuxlib.assistant.AssistantAction;
+import com.narrowtux.narrowtuxlib.assistant.AssistantPage;
+import com.narrowtux.narrowtuxlib.assistant.AssistantScreen;
 import com.narrowtux.shortcuts.Shortcut;
 import com.narrowtux.shortcuts.ShortcutAction;
 import com.narrowtux.shortcuts.ShortcutPlayer;
@@ -18,7 +35,7 @@ public class ShortcutSetupAssistant extends Assistant {
 	public ShortcutPlayer player;
 	public boolean update = false;
 	public Shortcut updatedShortcut = null;
-	
+
 	public ShortcutSetupAssistant(Player p) {
 		super(p);
 		setTitle("Shortcut setup");
@@ -92,7 +109,7 @@ public class ShortcutSetupAssistant extends Assistant {
 			}
 		});
 	}
-	
+
 	protected void sendCommand(String cmd, String desc) {
 		sendMessage(ChatColor.RED+"!"+cmd+ChatColor.YELLOW+": "+ChatColor.WHITE+desc);
 	}
@@ -107,7 +124,7 @@ public class ShortcutSetupAssistant extends Assistant {
 		sendMessage("Shortcut set up.");
 		ShortcutsMain.instance.save();
 	}
-	
+
 	@Override
 	public void onAssistantCancel(){
 		player.setCurrentAssistant(null);
@@ -118,10 +135,9 @@ public class ShortcutSetupAssistant extends Assistant {
 	public AssistantScreen createAssistantScreen() {
 		return new ShortcutSetupScreen(this);
 	}
-	
+
 	@Override
 	public boolean useGUI(){
 		return false;
 	}
-
 }

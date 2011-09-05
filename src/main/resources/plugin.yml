@@ -1,0 +1,23 @@
+name: Shortcuts
+version: 0.2.5.${build.number}
+author: narrowtux
+description: Create shortcuts for chat and commands.
+website: http://www.narrowtux.com
+
+main: com.narrowtux.shortcuts.ShortcutsMain
+depends: [NarrowtuxLib]
+
+commands:
+  shortcut:
+    aliases: sh
+    permission: shortcuts.use
+    usage: /sh [add|remove|list]
+
+permissions: 
+  shortcuts.*:
+    description: Gives you access to all features of Shortcuts.
+    children:
+      shortcuts.use: true
+  shortcuts.use:
+    description: Gives you access to the main features of the plugin (add, update, remove, list).
+    default: true

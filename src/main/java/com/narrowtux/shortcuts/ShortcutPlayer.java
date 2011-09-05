@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2011 Moritz Schmale <narrow.m@gmail.com>
+ *
+ * NarrowtuxLib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl.html>.
+ */
+
 package com.narrowtux.shortcuts;
 
 import java.util.Collection;
@@ -8,6 +25,7 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
 import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -29,7 +47,7 @@ public class ShortcutPlayer {
 		_name = name;
 		instances.put(name, this);
 	}
-	
+
 	public static ShortcutPlayer get(String name){
 		if(!instances.containsKey(name)){
 			return new ShortcutPlayer(name);
@@ -37,19 +55,19 @@ public class ShortcutPlayer {
 			return instances.get(name);
 		}
 	}
-	
+
 	public static ShortcutPlayer get(Player player){
 		return get(player.getName());
 	}
-	
+
 	public String getName(){
 		return _name;
 	}
-	
+
 	public boolean isAcceptedScreen(ScreenType type){
 		return type.equals(ScreenType.GAME_SCREEN)||type.equals(ScreenType.CUSTOM_SCREEN);
 	}
-	
+
 	public void keyDown(Keyboard key, ScreenType screenType){
 		if(!isAcceptedScreen(screenType))
 			return;
@@ -90,7 +108,7 @@ public class ShortcutPlayer {
 			}
 		}
 	}
-	
+
 	public void keyUp(Keyboard key, ScreenType screenType){
 		if(!isAcceptedScreen(screenType))
 			return;
@@ -100,7 +118,7 @@ public class ShortcutPlayer {
 			currentlyPressedKeys.clear();
 		}
 	}
-	
+
 	public void onShortcut(Shortcut shortcut, ScreenType type){
 		//getPlayer().sendMessage(shortcut.toString());
 		if(remove){
@@ -153,7 +171,7 @@ public class ShortcutPlayer {
 	public SpoutPlayer getPlayer() {
 		return (SpoutPlayer)Bukkit.getServer().getPlayer(getName());
 	}
-	
+
 	public void addAction(Shortcut sh, ShortcutAction act){
 		actions.put(sh, act);
 	}
@@ -161,7 +179,7 @@ public class ShortcutPlayer {
 	public void setCurrentAssistant(ShortcutSetupAssistant shortcutSetupAssistant) {
 		assistant = shortcutSetupAssistant;
 	}
-	
+
 	public ShortcutSetupAssistant getCurrentAssistant(){
 		return assistant;
 	}
@@ -173,15 +191,15 @@ public class ShortcutPlayer {
 	public void setUpdate(boolean b) {
 		update  = b;
 	}
-	
+
 	public Set<Shortcut> getRegisteredShortcuts(){
 		return actions.keySet();
 	}
-	
+
 	public ShortcutAction getAction(Shortcut s){
 		return actions.get(s);
 	}
-	
+
 	public static Collection<ShortcutPlayer> getPlayers(){
 		return instances.values();
 	}
@@ -193,11 +211,11 @@ public class ShortcutPlayer {
 	public Shortcut getPressedKeys() {
 		return new Shortcut(currentlyPressedKeys);
 	}
-	
+
 	public Shortcut getKeysToBeReleased(){
 		return new Shortcut(keysUpLeft);
 	}
-	
+
 	public void clearKeys(){
 		currentlyPressedKeys.clear();
 		keysUpLeft.clear();

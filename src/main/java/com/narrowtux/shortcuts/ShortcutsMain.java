@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2011 Moritz Schmale <narrow.m@gmail.com>
+ *
+ * NarrowtuxLib is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/gpl.html>.
+ */
+
 package com.narrowtux.shortcuts;
 
 import java.io.BufferedOutputStream;
@@ -22,11 +39,12 @@ import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import com.narrowtux.Main.NarrowtuxLib;
-import com.narrowtux.Utils.FlatFileReader;
+import com.narrowtux.narrowtuxlib.NarrowtuxLib;
+import com.narrowtux.narrowtuxlib.utils.FlatFileReader;
 import com.narrowtux.shortcuts.assistant.ShortcutSetupAssistant;
 import com.narrowtux.shortcuts.listeners.KeyboardListener;
 import com.narrowtux.shortcuts.listeners.ShortcutSpoutListener;
@@ -37,7 +55,7 @@ public class ShortcutsMain extends JavaPlugin {
 	private NarrowtuxLib lib = null;
 	public static ShortcutsMain instance;
 	private long ticks = 0;
-	
+
 	@Override
 	public void onDisable() {
 		//save();
@@ -71,7 +89,7 @@ public class ShortcutsMain extends JavaPlugin {
 		}
 		log.log(Level.INFO, "["+pdf.getName()+"] v"+pdf.getVersion()+" by ["+authors+"] "+startup+".");
 	}
-	
+
 	private void checkForLibs() {
 		PluginManager pm = getServer().getPluginManager();
 		lib = (NarrowtuxLib)pm.getPlugin("NarrowtuxLib");
@@ -88,7 +106,7 @@ public class ShortcutsMain extends JavaPlugin {
 			}
 		}
 	}
-	
+
 	public static void download(Logger log, URL url, File file) throws IOException {
 	    if (!file.getParentFile().exists())
 	        file.getParentFile().mkdir();
@@ -114,7 +132,7 @@ public class ShortcutsMain extends JavaPlugin {
 	    out.close();
 	    log.info("Download finished");
 	}
-	
+
 	private void registerEvent(Type type, Listener listener, Priority priority){
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvent(type, listener, priority, this);
@@ -123,7 +141,7 @@ public class ShortcutsMain extends JavaPlugin {
 	private void registerEvent(Type type, Listener listener){
 		registerEvent(type, listener, Priority.Normal);
 	}
-	
+
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String args[]){
 		if(sender instanceof Player){
 			SpoutPlayer player = (SpoutPlayer)sender;
@@ -193,7 +211,7 @@ public class ShortcutsMain extends JavaPlugin {
 		}
 		return false;
 	}
-	
+
 	public void save(){
 		FlatFileReader reader = new FlatFileReader(new File(getDataFolder(), "players.lst"), true);
 		reader.clear();
@@ -213,7 +231,7 @@ public class ShortcutsMain extends JavaPlugin {
 		}
 		reader.write();
 	}
-	
+
 	private void saveShortcut(Shortcut sh, ShortcutAction action, String filename) {
 		FlatFileReader reader = new FlatFileReader(new File(getDataFolder(), filename), false);
 		reader.clear();
@@ -261,11 +279,11 @@ public class ShortcutsMain extends JavaPlugin {
 		}
 		player.addAction(sh, action);
 	}
-	
+
 	public static void onTick(){
 		instance.ticks++;
 	}
-	
+
 	public static long getTicks(){
 		return instance.ticks;
 	}
