@@ -19,9 +19,14 @@ Compiling
 ---------
 Shortcuts uses Maven to handle its dependencies.
 
-Shortcuts requires Bukkit and Permissions 3.x (preferrably the latest versions or source).  
+Shortcuts requires Bukkit and other plugins (preferrably the latest versions or source).  
 * Install [Maven 2 or 3](http://maven.apache.org/download.html)  
 * Checkout this repo and run: `mvn clean`
+
+Other required plugins:  
+* NarrowtuxLib
+* Permissions 3.x
+* SpoutAPI
 
 Coding and Pull Request Formatting
 ----------------------------------
@@ -35,7 +40,7 @@ Please follow the above conventions if you want your pull requests accepted.
 
 [Project Logo]: http://www.gravatar.com/avatar/f110a5b8feacea25275521f4efd0d7f2?s=148
 [License]: http://www.gnu.org/licenses/gpl.html
-[Forum]: http://forums.bukkit.org/threads/3835/
+[Forum]: http://forums.bukkit.org/threads/27757/
 [GitHub]: https://github.com/narrowtux/Shortcuts
 [Jenkins]: http://ci.craftfire.com/job/Shortcuts
 [Issues]: https://github.com/narrowtux/Shortcuts/issues
