@@ -33,9 +33,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.event.Event.Priority;
 import org.bukkit.event.Event.Type;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -47,8 +47,8 @@ import com.narrowtux.narrowtuxlib.NarrowtuxLib;
 import com.narrowtux.narrowtuxlib.utils.FlatFileReader;
 import com.narrowtux.shortcuts.assistant.ShortcutSetupAssistant;
 import com.narrowtux.shortcuts.listeners.KeyboardListener;
-import com.narrowtux.shortcuts.listeners.ShortcutSpoutListener;
 import com.narrowtux.shortcuts.listeners.ShortcutPlayerListener;
+import com.narrowtux.shortcuts.listeners.ShortcutSpoutListener;
 
 public class ShortcutsMain extends JavaPlugin {
 	private Logger log;
