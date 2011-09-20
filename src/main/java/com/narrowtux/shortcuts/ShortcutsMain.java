@@ -105,6 +105,9 @@ public class ShortcutsMain extends JavaPlugin {
 				pm.disablePlugin(this);
 			}
 		}
+		if(!NarrowtuxLib.getInstance().installSpout()){
+			System.out.println("[Shortcuts] failed to enable spout! You need spout!");
+		}
 	}
 
 	public static void download(Logger log, URL url, File file) throws IOException {
@@ -150,7 +153,7 @@ public class ShortcutsMain extends JavaPlugin {
 				player.sendMessage("You may not use Shortcuts!");
 				return true;
 			}
-			if(player.getVersion()>=4){
+			if(player.isSpoutCraftEnabled()){
 				if(args.length>=1){
 					String action = args[0];
 					if(action.equalsIgnoreCase("add")){
@@ -198,11 +201,7 @@ public class ShortcutsMain extends JavaPlugin {
 					}
 				}
 			} else {
-				if(player.isSpoutCraftEnabled()){
-					sender.sendMessage("Your Spoutcraft is waaaay too old!");
-				} else {
-					sender.sendMessage("You need Spoutcraft!");
-				}
+				sender.sendMessage("You need Spoutcraft!");
 				return true;
 			}
 		} else {
