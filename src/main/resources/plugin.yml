@@ -1,5 +1,5 @@
 name: Shortcuts
-version: 0.2.5.${build.number}
+version: 0.2.6.${build.number}
 author: narrowtux
 description: Create shortcuts for chat and commands.
 website: http://www.narrowtux.com
